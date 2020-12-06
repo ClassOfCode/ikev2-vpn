@@ -53,14 +53,14 @@ running_docker(){
 # pull image command
 pull_image(){
   echo -e "\n*************** Pull ikev2 vpn image from docker hub... ***************"
-  sudo docker pull docker.pkg.github.com/classofcode/ikev2-vpn/ikev2-vpn:latest
+  sudo docker pull ghcr.io/classofcode/ikev2-vpn:latest
 }
 
 # run command
 run_docker(){
     sudo docker run --restart=always -itd --privileged -v /lib/modules:/lib/modules \
 -e HOST_IP=$PUBLIC_IP -e VPNUSER=$VPNUSER -e VPNPASS="$VPNPASS" \
--p 500:500/udp -p 4500:4500/udp --name=ikev2-vpn docker.pkg.github.com/classofcode/ikev2-vpn/ikev2-vpn:latest
+-p 500:500/udp -p 4500:4500/udp --name='IKEv2-VPN' ghcr.io/classofcode/ikev2-vpn:latest
 }
 
 # Run ikev2 server
@@ -68,11 +68,11 @@ run_vpnserver(){
   export PUBLIC_IP=`dig +short myip.opendns.com @resolver1.opendns.com`
   export VPNUSER=$1
   export VPNPASS=$2
-  CONTAINER_NAME=`sudo docker ps -f name=ikev2-vpn --format '{{.Names}}'`
+  CONTAINER_NAME=`sudo docker ps -f name=IKEv2-VPN --format '{{.Names}}'`
 
   echo -e "\n*************** Start vpn server...***************"
 
-  if [ "$CONTAINER_NAME" = 'ikev2-vpn' ]; then
+  if [ "$CONTAINER_NAME" = 'IKEv2-VPN' ]; then
     echo -e "\n*************** Delete old vpn server. "
     sudo docker rm -f $CONTAINER_NAME
     run_docker
@@ -87,7 +87,7 @@ run_vpnserver(){
 # Generate certificate
 generate_cert(){
   echo -e "\n*************** Generate certificate ***************"
-  sudo docker exec -it ikev2-vpn sh /usr/bin/vpn
+  sudo docker exec -it IKEv2-VPN sh /usr/bin/vpn
   echo -e "\n*************** Congratulations. 42. *************** "
   echo "Note: Don't forget to set the cloud host's firewall to allow udp port 500 and port 4500 traffic ! ^_^"
 }
@@ -99,7 +99,7 @@ install_dep_tools(){
 }
 
 copy_cert(){
-  docker cp ikev2-vpn:/data/key_files/ca.cert.pem ./IKEv2.pem
+  docker cp IKEv2-VPN:/data/key_files/ca.cert.pem ./IKEv2.pem
 }
 
 login_docker_github(){
