@@ -32,5 +32,4 @@ supervisorctl restart ipsec
 # View the certificate contents and save file
 echo "Below the horizontal line is the content of the certificate. Copy the content to a file in the .cert suffix format. Such as: vpn.crt"
 echo "_____________________Good Luck!________________________________________"
-cp /data/key_files/ca.cert.pem ~/IKEv2.pem
-
+cat /data/key_files/ca.cert.pem

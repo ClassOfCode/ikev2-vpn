@@ -60,7 +60,7 @@ pull_image(){
 run_docker(){
     sudo docker run --restart=always -itd --privileged -v /lib/modules:/lib/modules \
 -e HOST_IP=$PUBLIC_IP -e VPNUSER=$VPNUSER -e VPNPASS="$VPNPASS" \
--p 500:500/udp -p 4500:4500/udp --name=ikev2-vpn hanyifeng/alpine-ikev2-vpn
+-p 500:500/udp -p 4500:4500/udp --name=ikev2-vpn ike2-vpn:1.0
 }
 
 # Run ikev2 server
@@ -98,6 +98,10 @@ install_dep_tools(){
 
 }
 
+copy_cert(){
+  docker cp ikev2-vpn:/data/key_files/ca.cert.pem ./IKEv2.pem
+}
+
 # ensure installed docker engine
 command -v docker >/dev/null 2>&1
 
@@ -108,6 +112,7 @@ if [ $? -eq 0 ] ; then
   pull_image
   run_vpnserver $@
   generate_cert
+  copy_cert
 else
   install_docker
   install_dep_tools
@@ -115,4 +120,5 @@ else
   pull_image
   run_vpnserver $@
   generate_cert
+  copy_cert
 fi
