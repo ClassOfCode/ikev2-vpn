@@ -5,6 +5,11 @@ on:
     branches: [ main ]
   pull_request:
     branches: [ main ]
+env:
+  # TODO: Change variable to your image's name.
+  IMAGE_NAME: ikev2-vpn
+  CR_PAT: '${{ secrets.CR_PAT }}'
+
 
 jobs:
 
