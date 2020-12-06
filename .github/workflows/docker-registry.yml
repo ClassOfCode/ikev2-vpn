@@ -8,6 +8,7 @@ on:
 
 env:
   CR_PAT: '${{ secrets.CR_PAT }}'
+  IMAGE_NAME: ikev2-vpn 
 
 jobs:
 
