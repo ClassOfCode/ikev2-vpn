@@ -26,19 +26,18 @@ jobs:
             docker build . --file Dockerfile
           fi
 
-  push:
-      # Ensure test job passes before pushing image.
-      needs: test
+    push:
+    # Ensure test job passes before pushing image.
+    needs: test
 
-      runs-on: ubuntu-latest
-      if: github.event_name == 'push'
+    runs-on: ubuntu-latest
+    if: github.event_name == 'push'
 
-      steps:
-        - uses: actions/checkout@v2
+    steps:
+      - uses: actions/checkout@v2
 
-        - name: Build image
-          run: docker build . --file Dockerfile --tag $IMAGE_NAME
-
+      - name: Build image
+        run: docker build . --file Dockerfile --tag $IMAGE_NAME
         - name: Log into registry
           run: echo $CR_PAT | docker login ghcr.io -u USERNAME --password-stdin
 
