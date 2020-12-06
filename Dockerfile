@@ -8,7 +8,7 @@ ENV VPNPASS ''
 ENV TZ=America/New_York
 
 # strongSwan Version
-ARG SS_VERSION="https://download.strongswan.org/strongswan-5.9.0.tar.gz"
+ARG SS_VERSION="https://download.strongswan.org/strongswan-5.6.2.tar.gz"
 
 # download en
 ARG BUILD_DEPS="gettext"
