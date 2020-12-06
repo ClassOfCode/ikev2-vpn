@@ -103,7 +103,7 @@ copy_cert(){
 }
 
 login_docker_github(){
-  docker login https://docker.pkg.github.com -u abhay-ranawat -p dffda0281d3bfe40e9e477ffdac9d69dae4e2c42
+  docker login https://docker.pkg.github.com -u $3 -p $4
 }
 
 # ensure installed docker engine
@@ -111,7 +111,6 @@ command -v docker >/dev/null 2>&1
 
 if [ $? -eq 0 ] ; then
   echo "Docker already exists !"
-  login_docker_github
   install_dep_tools
   running_docker
   pull_image
@@ -120,7 +119,6 @@ if [ $? -eq 0 ] ; then
   copy_cert
 else
   install_docker
-  login_docker_github
   install_dep_tools
   running_docker
   pull_image
