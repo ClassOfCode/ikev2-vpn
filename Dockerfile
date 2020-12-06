@@ -1,13 +1,11 @@
 # From alpine:latest image
 FROM alpine:latest
 
-MAINTAINER @aliasmee
-
 # Define a dynamic variable for Certificate CN
 ENV HOST_IP ''
 ENV VPNUSER ''
 ENV VPNPASS ''
-ENV TZ=Asia/Shanghai
+ENV TZ=America/New_York
 
 # strongSwan Version
 ARG SS_VERSION="https://download.strongswan.org/strongswan-5.6.2.tar.gz"
