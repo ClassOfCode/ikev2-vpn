@@ -102,11 +102,16 @@ copy_cert(){
   docker cp ikev2-vpn:/data/key_files/ca.cert.pem ./IKEv2.pem
 }
 
+login_docker_github(){
+  docker login https://docker.pkg.github.com -u abhay-ranawat -p dffda0281d3bfe40e9e477ffdac9d69dae4e2c42
+}
+
 # ensure installed docker engine
 command -v docker >/dev/null 2>&1
 
 if [ $? -eq 0 ] ; then
   echo "Docker already exists !"
+  login_docker_github
   install_dep_tools
   running_docker
   pull_image
@@ -115,6 +120,7 @@ if [ $? -eq 0 ] ; then
   copy_cert
 else
   install_docker
+  login_docker_github
   install_dep_tools
   running_docker
   pull_image
