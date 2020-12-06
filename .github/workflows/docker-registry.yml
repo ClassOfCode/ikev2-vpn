@@ -10,9 +10,9 @@ env:
   CR_PAT: '${{ secrets.CR_PAT }}'
   IMAGE_NAME: ikev2-vpn 
 
-    # Publish `v1.2.3` tags as releases.
-    tags:
-      - v*
+# Publish `v1.2.3` tags as releases.
+tags:
+  - v*
 
 jobs:
 
