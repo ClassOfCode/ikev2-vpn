@@ -59,7 +59,7 @@ pull_image(){
 # run command
 run_docker(){
     sudo docker run --restart=always -itd --privileged -v /lib/modules:/lib/modules \
--e HOST_IP=$PUBLIC_IP -e VPNUSER=$VPNUSER -e VPNPASS="$VPNPASS" \
+-e HOST_IP=$PUBLIC_IP -e VPNUSER=$VPNUSER -e VPNPASS="$VPNPASS" --dns $DNS1 --dns $DNS2 \
 -p 500:500/udp -p 4500:4500/udp --name='IKEv2-VPN' ghcr.io/classofcode/ikev2-vpn:latest
 }
 
@@ -68,6 +68,8 @@ run_vpnserver(){
   export PUBLIC_IP=`dig +short myip.opendns.com @resolver1.opendns.com`
   export VPNUSER=$1
   export VPNPASS=$2
+  export DNS1=45.90.28.202
+  export DNS2=45.90.28.202
   CONTAINER_NAME=`sudo docker ps -f name=IKEv2-VPN --format '{{.Names}}'`
 
   echo -e "\n*************** Start vpn server...***************"

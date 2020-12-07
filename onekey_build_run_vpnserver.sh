@@ -99,7 +99,7 @@ install_dep_tools(){
 }
 
 copy_cert(){
-  docker cp IKEv2-VPN:/data/key_files/ca.cert.pem ./IKEv2.pem
+  docker cp IKEv2-VPN:/data/key_files/ca.cert.pem ./IKEv2.crt
 }
 
 login_docker_github(){
