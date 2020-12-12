@@ -21,9 +21,9 @@ env:
 jobs:
   # Run tests.
   # See also https://docs.docker.com/docker-hub/builds/automated-testing/
-  Build Docker Container:
+  test:
+    name: Build Docker Container
     runs-on: ubuntu-latest
-
     steps:
       - uses: actions/checkout@v2
 
@@ -35,12 +35,11 @@ jobs:
           else
             docker build . --file Dockerfile
           fi
-  Push Docker Container to GHCR:
+  push:
     # Ensure test job passes before pushing image.
+    name: Push Docker Container to GHCR
     needs: test
-
     runs-on: ubuntu-latest
-
     steps:
       - uses: actions/checkout@v2
 

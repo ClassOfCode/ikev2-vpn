@@ -20,9 +20,9 @@ env:
 jobs:
   # Run tests.
   # See also https://docs.docker.com/docker-hub/builds/automated-testing/
-  Build Docker Container:
+  test:
+    name: Build Docker Container
     runs-on: ubuntu-latest
-
     steps:
       - uses: actions/checkout@v2
 
@@ -37,13 +37,12 @@ jobs:
 
   # Push image to GitHub Packages.
   # See also https://docs.docker.com/docker-hub/builds/
-  Push Docker Container to Github Packages:
+  push:
     # Ensure test job passes before pushing image.
+    name: Push Docker Container to Github Packages
     needs: test
-
     runs-on: ubuntu-latest
     if: github.event_name == 'push'
-
     steps:
       - uses: actions/checkout@v2
 
