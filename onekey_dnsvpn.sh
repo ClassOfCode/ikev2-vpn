@@ -68,8 +68,6 @@ run_vpnserver(){
   export PUBLIC_IP=`dig +short myip.opendns.com @resolver1.opendns.com`
   export VPNUSER=$1
   export VPNPASS=$2
-  export DNS1=45.90.28.202
-  export DNS2=45.90.28.202
   CONTAINER_NAME=`sudo docker ps -f name=IKEv2-VPN --format '{{.Names}}'`
 
   echo -e "\n*************** Start vpn server...***************"
