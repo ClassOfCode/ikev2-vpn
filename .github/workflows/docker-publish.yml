@@ -37,7 +37,7 @@ jobs:
 
   # Push image to GitHub Packages.
   # See also https://docs.docker.com/docker-hub/builds/
-  push:
+  push-packages:
     # Ensure test job passes before pushing image.
     name: Push Docker Container to Github Packages
     needs: test
@@ -74,7 +74,7 @@ jobs:
           docker tag $IMAGE_NAME $IMAGE_ID:$VERSION
           docker push $IMAGE_ID:$VERSION
   
-  push:
+  push-ghcr:
     # Ensure test job passes before pushing image.
     name: Push Docker Container to GHCR
     needs: test
